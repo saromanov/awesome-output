@@ -1,4 +1,4 @@
-import Octokit from '@octokit/rest';
+import Octokit = require('@octokit/rest');
 const octokit = new Octokit();
 
 class AwesomeOutput {
@@ -27,3 +27,6 @@ class ReadmeReader {
         let data = 0;
     }
 }
+
+let out = new AwesomeOutput("123");
+out.get("https://github.com/avelino/awesome-go");
