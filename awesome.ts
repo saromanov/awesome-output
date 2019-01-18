@@ -16,8 +16,9 @@ class AwesomeOutput {
         let data = project.split('/').reverse();
         let repo = data[0];
         let owner = data[1];
-        const result = octokit.repos.get({owner, repo});
-        console.log(result); 
+        octokit.repos.get({owner, repo}).then(result => {
+            console.log(result);
+        });
     }  
 }
 
