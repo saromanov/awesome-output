@@ -8,7 +8,7 @@ class AwesomeOutput {
         this.token = token;
         octokit.authenticate({
             type: 'oauth',
-            token: '123'
+            token: this.token
           })
     }
 
@@ -16,8 +16,9 @@ class AwesomeOutput {
         let data = project.split('/').reverse();
         let repo = data[0];
         let owner = data[1];
-        octokit.repos.get({owner, repo}).then(result => {
-            console.log(result);
+        console.log(repo, owner);
+        octokit.repos.getReadme({owner, repo}).then(result => {
+            console.log(result.data.content);
         });
     }  
 }
@@ -33,5 +34,5 @@ class ReadmeReader {
     }
 }
 
-let out = new AwesomeOutput("123");
+let out = new AwesomeOutput("");
 out.get("https://github.com/avelino/awesome-go");

@@ -7,14 +7,15 @@ var AwesomeOutput = /** @class */ (function () {
         this.token = token;
         octokit.authenticate({
             type: 'oauth',
-            token: '123'
+            token: this.token
         });
     }
     AwesomeOutput.prototype.get = function (project) {
         var data = project.split('/').reverse();
         var repo = data[0];
         var owner = data[1];
-        octokit.repos.get({ owner: owner, repo: repo }).then(function (result) {
+        console.log(repo, owner);
+        octokit.repos.getReadme({ owner: owner, repo: repo }).then(function (result) {
             console.log(result);
         });
     };
@@ -32,5 +33,5 @@ var ReadmeReader = /** @class */ (function () {
     };
     return ReadmeReader;
 }());
-var out = new AwesomeOutput("123");
+var out = new AwesomeOutput("dabad95396a45fcf290b711d99cbb55b695fee48");
 out.get("https://github.com/avelino/awesome-go");
