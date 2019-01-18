@@ -18,7 +18,8 @@ class AwesomeOutput {
         let owner = data[1];
         console.log(repo, owner);
         octokit.repos.getReadme({owner, repo}).then(result => {
-            console.log(result.data.content);
+           let res = atob(result.data.content);
+           console.log(res);
         });
     }  
 }
