@@ -6,14 +6,18 @@ class AwesomeOutput {
     github: any;
     constructor(token:string ){
         this.token = token;
-        this.github = octokit.authenticate({
+        octokit.authenticate({
             type: 'oauth',
             token: '123'
           })
     }
 
     get(project: string) {
-
+        let data = project.split('/').reverse();
+        let repo = data[0];
+        let owner = data[1];
+        const result = octokit.repos.get({owner, repo});
+        console.log(result); 
     }  
 }
 

@@ -5,12 +5,17 @@ var octokit = new Octokit();
 var AwesomeOutput = /** @class */ (function () {
     function AwesomeOutput(token) {
         this.token = token;
-        this.github = octokit.authenticate({
+        octokit.authenticate({
             type: 'oauth',
             token: '123'
         });
     }
     AwesomeOutput.prototype.get = function (project) {
+        var data = project.split('/').reverse();
+        var repo = data[0];
+        var owner = data[1];
+        var result = octokit.repos.get({ owner: owner, repo: repo });
+        console.log(result);
     };
     return AwesomeOutput;
 }());
