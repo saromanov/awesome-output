@@ -2,6 +2,7 @@
 "use strict";
 exports.__esModule = true;
 var Octokit = require("@octokit/rest");
+var urls = require("get-urls");
 var octokit = new Octokit();
 var AwesomeOutput = /** @class */ (function () {
     function AwesomeOutput(token) {
@@ -19,7 +20,9 @@ var AwesomeOutput = /** @class */ (function () {
         console.log(repo, owner);
         octokit.repos.getReadme({ owner: owner, repo: repo }).then(function (result) {
             var res = Buffer.from(result.data.content, 'base64').toString();
-            console.log(res);
+            console.log(urls(res));
+        })["catch"](function (err) {
+            console.log("unable to get readme: ", err);
         });
     };
     return AwesomeOutput;

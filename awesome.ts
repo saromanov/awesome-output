@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import Octokit = require('@octokit/rest');
+import * as urls from 'get-urls';
 const octokit = new Octokit();
 
 class AwesomeOutput {
@@ -21,7 +22,7 @@ class AwesomeOutput {
         console.log(repo, owner);
         octokit.repos.getReadme({owner, repo}).then(result => {
            let res = Buffer.from(result.data.content, 'base64').toString();
-           console.log(res);
+           console.log(urls(res));
         }).catch(err => {
             console.log("unable to get readme: ", err)
         });
