@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import Octokit = require('@octokit/rest');
 const octokit = new Octokit();
 
@@ -13,27 +14,18 @@ class AwesomeOutput {
     }
 
     get(project: string) {
+        console.log(project);
         let data = project.split('/').reverse();
         let repo = data[0];
         let owner = data[1];
         console.log(repo, owner);
         octokit.repos.getReadme({owner, repo}).then(result => {
-           let res = atob(result.data.content);
+           let res = Buffer.from(result.data.content, 'base64').toString();
            console.log(res);
         });
     }  
 }
 
-
-/*
-
-ReadMeReader providers reading of README file and return output
-*/
-class ReadmeReader {
-    public static read(){
-        let data = 0;
-    }
-}
-
 let out = new AwesomeOutput("");
 out.get("https://github.com/avelino/awesome-go");
+
