@@ -2,7 +2,6 @@
 "use strict";
 exports.__esModule = true;
 var Octokit = require("@octokit/rest");
-var urls = require("get-urls");
 var octokit = new Octokit();
 var AwesomeOutput = /** @class */ (function () {
     function AwesomeOutput(token) {
@@ -20,12 +19,17 @@ var AwesomeOutput = /** @class */ (function () {
         console.log(repo, owner);
         octokit.repos.getReadme({ owner: owner, repo: repo }).then(function (result) {
             var res = Buffer.from(result.data.content, 'base64').toString();
-            console.log(urls(res));
+            //console.log(res);
+            console.log(findUrls(res));
         })["catch"](function (err) {
             console.log("unable to get readme: ", err);
         });
     };
     return AwesomeOutput;
 }());
+function findUrls(text) {
+    var urls = new RegExp("^|[ \t\r\n]((http|https):(([A-Za-z0-9$_.+!*(),;/?:@&~=-])|%[A-Fa-f0-9]{2}){2,}(#([a-zA-Z0-9][a-zA-Z0-9$_.+!*(),;/?:@&~=%-]*))?([A-Za-z0-9$_+!*();/?:~-]))", "g");
+    return text.match(urls);
+}
 var out = new AwesomeOutput("");
 out.get("https://github.com/avelino/awesome-go");

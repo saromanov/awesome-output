@@ -22,11 +22,20 @@ class AwesomeOutput {
         console.log(repo, owner);
         octokit.repos.getReadme({owner, repo}).then(result => {
            let res = Buffer.from(result.data.content, 'base64').toString();
-           console.log(urls(res));
+           //console.log(res);
+           console.log(findUrls(res));
         }).catch(err => {
             console.log("unable to get readme: ", err)
         });
     }  
+}
+
+function findUrls(text:string): any {
+    let urls = new RegExp(
+        "^|[ \t\r\n]((http|https):(([A-Za-z0-9$_.+!*(),;/?:@&~=-])|%[A-Fa-f0-9]{2}){2,}(#([a-zA-Z0-9][a-zA-Z0-9$_.+!*(),;/?:@&~=%-]*))?([A-Za-z0-9$_+!*();/?:~-]))"
+       ,"g"
+     );
+     return text.match(urls);
 }
 
 let out = new AwesomeOutput("");
