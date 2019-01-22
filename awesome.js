@@ -19,17 +19,23 @@ var AwesomeOutput = /** @class */ (function () {
         console.log(repo, owner);
         octokit.repos.getReadme({ owner: owner, repo: repo }).then(function (result) {
             var res = Buffer.from(result.data.content, 'base64').toString();
-            //console.log(res);
-            console.log(findUrls(res));
+            res.split("\n").forEach(function (item) {
+                console.log(findUrl(item));
+            });
+            //console.log(findUrls(res));
         })["catch"](function (err) {
             console.log("unable to get readme: ", err);
         });
     };
     return AwesomeOutput;
 }());
-function findUrls(text) {
-    var urls = new RegExp("^|[ \t\r\n]((http|https):(([A-Za-z0-9$_.+!*(),;/?:@&~=-])|%[A-Fa-f0-9]{2}){2,}(#([a-zA-Z0-9][a-zA-Z0-9$_.+!*(),;/?:@&~=%-]*))?([A-Za-z0-9$_+!*();/?:~-]))", "g");
-    return text.match(urls);
+function findUrl(text) {
+    var reg = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    var result = reg.exec(text);
+    if (result == null) {
+        return "";
+    }
+    return result[0];
 }
-var out = new AwesomeOutput("");
+var out = new AwesomeOutput("7fd297ddd2acea7798741fa85ac522279ba1b13f");
 out.get("https://github.com/avelino/awesome-go");
