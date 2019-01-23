@@ -37,5 +37,7 @@ function findUrl(text) {
     }
     return result[0];
 }
-var out = new AwesomeOutput("");
+var token = process.argv.slice(2)[0];
+console.log(token);
+var out = new AwesomeOutput(token);
 out.get("https://github.com/avelino/awesome-go");

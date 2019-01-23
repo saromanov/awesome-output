@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import Octokit = require('@octokit/rest');
 import * as urls from 'get-urls';
+import * as ok from 'os';
 const octokit = new Octokit();
 
 class AwesomeOutput {
@@ -41,6 +42,8 @@ function findUrl(text:string): string {
     return result[0];
 }
 
-let out = new AwesomeOutput("");
+let token = process.argv.slice(2)[0];
+console.log(token);
+let out = new AwesomeOutput(token);
 out.get("https://github.com/avelino/awesome-go");
 
