@@ -22,7 +22,7 @@ var AwesomeOutput = /** @class */ (function () {
             res.split("\n").forEach(function (item) {
                 var url = findUrl(item);
                 if (url != "" && url.indexOf("github.com") != -1) {
-                    console.log(_this.getRepo(url));
+                    var prop = _this.getRepoNames(url);
                 }
             });
             //console.log(findUrls(res));
@@ -30,7 +30,7 @@ var AwesomeOutput = /** @class */ (function () {
             console.log("unable to get readme: ", err);
         });
     };
-    AwesomeOutput.prototype.getRepo = function (path) {
+    AwesomeOutput.prototype.getRepoNames = function (path) {
         var data = path.split('/').reverse();
         if (data.length < 2) {
             return null;

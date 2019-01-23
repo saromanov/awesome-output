@@ -26,7 +26,8 @@ class AwesomeOutput {
            res.split("\n").forEach(item => {
                let url = findUrl(item);
                if (url != "" && url.indexOf("github.com") != -1) {
-                 console.log(this.getRepo(url));
+                 let prop = this.getRepoNames(url);
+
                }
            });
            //console.log(findUrls(res));
@@ -35,7 +36,7 @@ class AwesomeOutput {
         });
     }
     
-    getRepo(path:string):RepoPath|null {
+    private getRepoNames(path:string):RepoPath|null {
         let data = path.split('/').reverse();
         if (data.length < 2) {
             return null;
