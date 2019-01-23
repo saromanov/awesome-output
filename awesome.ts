@@ -35,8 +35,12 @@ class AwesomeOutput {
         });
     }
     
-    getRepo(path:string):(string, string) {
-        return "","";
+    getRepo(path:string):RepoPath|null {
+        let data = path.split('/').reverse();
+        if (data.length < 2) {
+            return null;
+        }
+        return {owner: data[0], name: data[1]};
     }
 }
 
