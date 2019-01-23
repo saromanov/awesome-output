@@ -27,7 +27,7 @@ class AwesomeOutput {
                let url = findUrl(item);
                if (url != "" && url.indexOf("github.com") != -1) {
                  let prop = this.getRepoNames(url);
-
+                 this.getRepo(prop);
                }
            });
            //console.log(findUrls(res));
@@ -42,6 +42,12 @@ class AwesomeOutput {
             return null;
         }
         return {owner: data[1], name: data[0]};
+    }
+
+    private getRepo(path: RepoPath){
+        octokit.repos.get({owner: path.owner, repo: path.name}).then(result => {
+            console.log(result);
+        })
     }
 }
 
