@@ -12,20 +12,30 @@ var AwesomeOutput = /** @class */ (function () {
         });
     }
     AwesomeOutput.prototype.get = function (project) {
-        console.log(project);
+        var _this = this;
         var data = project.split('/').reverse();
         var repo = data[0];
         var owner = data[1];
         console.log(repo, owner);
         octokit.repos.getReadme({ owner: owner, repo: repo }).then(function (result) {
             var res = Buffer.from(result.data.content, 'base64').toString();
-            console.log(res.split("\n").filter(function (item) {
-                return findUrl(item).indexOf('github.com') != -1;
-            }));
+            res.split("\n").forEach(function (item) {
+                var url = findUrl(item);
+                if (url != "" && url.indexOf("github.com") != -1) {
+                    console.log(_this.getRepo(url));
+                }
+            });
             //console.log(findUrls(res));
         })["catch"](function (err) {
             console.log("unable to get readme: ", err);
         });
+    };
+    AwesomeOutput.prototype.getRepo = function (path) {
+        var data = path.split('/').reverse();
+        if (data.length < 2) {
+            return null;
+        }
+        return { owner: data[1], name: data[0] };
     };
     return AwesomeOutput;
 }());

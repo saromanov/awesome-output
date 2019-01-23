@@ -25,8 +25,8 @@ class AwesomeOutput {
            let res = Buffer.from(result.data.content, 'base64').toString();
            res.split("\n").forEach(item => {
                let url = findUrl(item);
-               if (url != "") {
-                
+               if (url != "" && url.indexOf("github.com") != -1) {
+                 console.log(this.getRepo(url));
                }
            });
            //console.log(findUrls(res));
@@ -40,7 +40,7 @@ class AwesomeOutput {
         if (data.length < 2) {
             return null;
         }
-        return {owner: data[0], name: data[1]};
+        return {owner: data[1], name: data[0]};
     }
 }
 
