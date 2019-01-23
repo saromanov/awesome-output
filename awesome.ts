@@ -4,6 +4,7 @@ import * as urls from 'get-urls';
 import * as ok from 'os';
 const octokit = new Octokit();
 
+type RepoPath = {owner:string, name:string};
 class AwesomeOutput {
     token:string;
     github: any;
@@ -16,7 +17,6 @@ class AwesomeOutput {
     }
 
     get(project: string) {
-        console.log(project);
         let data = project.split('/').reverse();
         let repo = data[0];
         let owner = data[1];
@@ -24,13 +24,20 @@ class AwesomeOutput {
         octokit.repos.getReadme({owner, repo}).then(result => {
            let res = Buffer.from(result.data.content, 'base64').toString();
            res.split("\n").forEach(item => {
-               console.log(findUrl(item));
+               let url = findUrl(item);
+               if (url != "") {
+                
+               }
            });
            //console.log(findUrls(res));
         }).catch(err => {
             console.log("unable to get readme: ", err)
         });
-    }  
+    }
+    
+    getRepo(path:string):(string, string) {
+        return "","";
+    }
 }
 
 function findUrl(text:string): string {

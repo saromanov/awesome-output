@@ -19,9 +19,9 @@ var AwesomeOutput = /** @class */ (function () {
         console.log(repo, owner);
         octokit.repos.getReadme({ owner: owner, repo: repo }).then(function (result) {
             var res = Buffer.from(result.data.content, 'base64').toString();
-            res.split("\n").forEach(function (item) {
-                console.log(findUrl(item));
-            });
+            console.log(res.split("\n").filter(function (item) {
+                return findUrl(item).indexOf('github.com') != -1;
+            }));
             //console.log(findUrls(res));
         })["catch"](function (err) {
             console.log("unable to get readme: ", err);
