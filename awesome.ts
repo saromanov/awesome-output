@@ -47,6 +47,8 @@ class AwesomeOutput {
     private getRepo(path: RepoPath){
         octokit.repos.get({owner: path.owner, repo: path.name}).then(result => {
             console.log(result.data.full_name, result.data.stargazers_count);
+        }).catch(err => {
+            console.log(err)
         })
     }
 }

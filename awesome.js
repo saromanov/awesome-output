@@ -41,6 +41,8 @@ var AwesomeOutput = /** @class */ (function () {
     AwesomeOutput.prototype.getRepo = function (path) {
         octokit.repos.get({ owner: path.owner, repo: path.name }).then(function (result) {
             console.log(result.data.full_name, result.data.stargazers_count);
+        })["catch"](function (err) {
+            console.log(err);
         });
     };
     return AwesomeOutput;
