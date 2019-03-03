@@ -23,6 +23,7 @@ var AwesomeOutput = /** @class */ (function () {
                 var url = findUrl(item);
                 if (url != "" && url.indexOf("github.com") != -1) {
                     var prop = _this.getRepoNames(url);
+                    _this.getRepo(prop);
                 }
             });
             //console.log(findUrls(res));
@@ -36,6 +37,11 @@ var AwesomeOutput = /** @class */ (function () {
             return null;
         }
         return { owner: data[1], name: data[0] };
+    };
+    AwesomeOutput.prototype.getRepo = function (path) {
+        octokit.repos.get({ owner: path.owner, repo: path.name }).then(function (result) {
+            console.log(result.data.full_name, result.data.stargazers_count);
+        });
     };
     return AwesomeOutput;
 }());
