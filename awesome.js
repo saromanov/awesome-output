@@ -23,9 +23,10 @@ var AwesomeOutput = /** @class */ (function () {
                 var url = findUrl(item);
                 if (url != "" && url.indexOf("github.com") != -1) {
                     var prop = _this.getRepoNames(url);
-                    _this.getRepo(prop);
+                    console.log(_this.getRepo(prop));
                 }
             });
+            console.log("complete");
             //console.log(findUrls(res));
         })["catch"](function (err) {
             console.log("unable to get readme: ", err);
@@ -40,7 +41,7 @@ var AwesomeOutput = /** @class */ (function () {
     };
     AwesomeOutput.prototype.getRepo = function (path) {
         octokit.repos.get({ owner: path.owner, repo: path.name }).then(function (result) {
-            console.log(result.data.full_name, result.data.stargazers_count);
+            console.log({ 'name': result.data.full_name, 'starts': result.data.stargazers_count });
         })["catch"](function (err) {
             console.log(err);
         });

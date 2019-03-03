@@ -27,9 +27,10 @@ class AwesomeOutput {
                let url = findUrl(item);
                if (url != "" && url.indexOf("github.com") != -1) {
                  let prop = this.getRepoNames(url);
-                 this.getRepo(prop);
+                 console.log(this.getRepo(prop));
                }
            });
+           console.log("complete");
            //console.log(findUrls(res));
         }).catch(err => {
             console.log("unable to get readme: ", err)
@@ -46,7 +47,7 @@ class AwesomeOutput {
 
     private getRepo(path: RepoPath){
         octokit.repos.get({owner: path.owner, repo: path.name}).then(result => {
-            console.log(result.data.full_name, result.data.stargazers_count);
+           console.log({'name': result.data.full_name, 'starts': result.data.stargazers_count});
         }).catch(err => {
             console.log(err)
         })
